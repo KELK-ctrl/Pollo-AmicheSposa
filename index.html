@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pollo & Le amiche delle sposa</title>
+  <meta name="description"
+    content="Pollo & Le amiche delle spose — condividi le foto del matrimonio e segui tutti gli scatti su Instagram.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600..800,100&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ── Recoleta (locale se disponibile) ── */
+    @font-face {
+      font-family: 'Recoleta';
+      src: url('Recoleta-Bold.woff2') format('woff2'),
+        url('Recoleta-Bold.woff') format('woff'),
+        url('Recoleta-Bold.otf') format('opentype'),
+        url('Recoleta-Bold.ttf') format('truetype'),
+        local('Recoleta Bold'), local('Recoleta');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Recoleta';
+      src: url('Recoleta-Regular.woff2') format('woff2'),
+        url('Recoleta-Regular.woff') format('woff'),
+        url('Recoleta-Regular.otf') format('opentype'),
+        url('Recoleta-Regular.ttf') format('truetype'),
+        local('Recoleta Regular'), local('Recoleta');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-page: #F4F6FA;
+      --bg-card: #FFFFFF;
+      --border: rgba(0, 0, 0, 0.07);
+      --sky: #3DB9E5;
+      --sky-deep: #1A9CC9;
+      --sky-glow: rgba(61, 185, 229, 0.28);
+      --ink: #1A1A2E;
+      --ink-soft: #3D3D5C;
+      --ink-muted: rgba(30, 30, 60, 0.52);
+      --mascot-opacity: 0.62;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Niente scrollbar orizzontale MAI */
+    html,
+    body {
+      overflow-x: hidden;
+      background: var(--bg-page);
+      color: var(--ink);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Sfumatura di sfondo */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 40% at 10% 0%, rgba(61, 185, 229, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 35% at 90% 100%, rgba(61, 185, 229, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Wrapper principale ── */
+    .page {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      /* spazio in alto per le mascotte che sbucano */
+      padding: 130px 14px 52px;
+      z-index: 1;
+    }
+
+    /* ── Mascotte posizionate in cima alla .page, sopra la card ── */
+    .mascot-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      /* larghezza uguale alla .page */
+      pointer-events: none;
+      z-index: 3;
+      /* sopra la card */
+    }
+
+    .mascot-bg {
+      position: absolute;
+      opacity: var(--mascot-opacity);
+      user-select: none;
+      transition: opacity 0.3s;
+    }
+
+    /* Sposa: angolo superiore sinistro */
+    .mascot-left {
+      top: 0;
+      left: -38px;
+      width: 210px;
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.13));
+    }
+
+    /* Pollo: angolo superiore destro */
+    .mascot-right {
+      top: 0;
+      right: -38px;
+      width: 195px;
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.13));
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 36px;
+      padding: 28px 20px 30px;
+      position: relative;
+      /* NO overflow hidden — niente che tagli le mascotte */
+      box-shadow:
+        0 20px 60px -12px rgba(0, 0, 0, 0.12),
+        0 6px 20px -4px rgba(0, 0, 0, 0.07);
+    }
+
+    /* ── Contenuto card ── */
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      /* spazio top per non scontrarsi con le mascotte che sbucano dall'alto */
+      padding-top: 8px;
+    }
+
+    h1.main-title {
+      font-family: 'Recoleta', 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 42px;
+      line-height: 1.0;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+
+    h1.main-title .amp {
+      color: var(--sky-deep);
+    }
+
+    .subtitle {
+      font-family: 'Recoleta', 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--ink-soft);
+      margin: 6px 0 0;
+      line-height: 1.3;
+    }
+
+    /* Divisore decorativo */
+    .header-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .header-divider span {
+      display: block;
+      height: 1.5px;
+      width: 48px;
+      background: linear-gradient(90deg, transparent, var(--sky) 60%, transparent);
+      border-radius: 2px;
+    }
+
+    .header-divider .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--sky);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Pills ── */
+    .pill-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 0 0 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+      box-shadow: 0 4px 14px var(--sky-glow), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(61, 185, 229, 0.45);
+      filter: brightness(1.05);
+    }
+
+    .pill:active {
+      transform: scale(0.96);
+    }
+
+    .pill svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── Upload ── */
+    .upload-section {
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Recoleta', 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 17px;
+      text-align: center;
+      margin: 0 0 14px;
+      color: var(--ink);
+    }
+
+    .dropzone {
+      width: 100%;
+      aspect-ratio: 1.05 / 1;
+      border: 2px dashed var(--sky);
+      border-radius: 28px;
+      background: rgba(61, 185, 229, 0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-align: center;
+      padding: 18px;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .dropzone:hover,
+    .dropzone.drag {
+      background: rgba(61, 185, 229, 0.09);
+      border-color: #62CCEF;
+      box-shadow: 0 0 24px rgba(61, 185, 229, 0.2), inset 0 0 20px rgba(61, 185, 229, 0.06);
+      transform: scale(1.01);
+    }
+
+    .dropzone .plus {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 13px;
+      line-height: 1;
+      box-shadow: 0 6px 16px var(--sky-glow), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .dropzone:hover .plus {
+      transform: scale(1.1) rotate(8deg);
+    }
+
+    .dropzone .hint {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .dropzone .hint small {
+      display: block;
+      font-weight: 400;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .thumb-item {
+      aspect-ratio: 1/1;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(61, 185, 229, 0.25);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+    }
+
+    .thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .upload-status {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin: 14px 0 0;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    /* ── Separatore ── */
+    .section-sep {
+      margin: 24px auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-sep::before,
+    .section-sep::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.07) 40%, transparent);
+    }
+
+    .section-sep .sep-icon {
+      font-size: 13px;
+      opacity: 0.35;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+    }
+
+    .footer-label {
+      font-size: 12px;
+      color: var(--ink-muted);
+      font-weight: 700;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Link Instagram principale (pill) */
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+      box-shadow: 0 4px 14px var(--sky-glow);
+      transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+    }
+
+    .insta-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(61, 185, 229, 0.45);
+      filter: brightness(1.05);
+    }
+
+    .insta-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ── Preview card Instagram ── */
+    .insta-preview {
+      margin-top: 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+
+    .insta-preview:hover {
+      box-shadow: 0 8px 28px rgba(61, 185, 229, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .insta-preview-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px 10px;
+    }
+
+    .insta-avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .insta-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid transparent;
+      background: linear-gradient(white, white) padding-box,
+        linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) border-box;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      overflow: hidden;
+    }
+
+    /* se è un img, stile direct */
+    .insta-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .insta-preview-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .insta-preview-username {
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .insta-preview-name {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-top: 1px;
+      font-weight: 600;
+    }
+
+    .insta-preview-bio {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      margin-top: 3px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    .insta-preview-stats {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .insta-stat {
+      flex: 1;
+      text-align: center;
+      padding: 9px 4px;
+    }
+
+    .insta-stat+.insta-stat {
+      border-left: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .insta-stat-num {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .insta-stat-label {
+      font-size: 11px;
+      color: var(--ink-muted);
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    /* griglia 3 post */
+    .insta-preview-posts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      padding: 2px 0 0;
+    }
+
+    .insta-post-thumb {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .insta-post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* placeholder con colori pastello */
+    .insta-post-thumb.ph {
+      background: linear-gradient(135deg, #e8f4f8, #cce8f4);
+    }
+
+    .insta-post-thumb.ph2 {
+      background: linear-gradient(135deg, #f4e8e8, #f4ccd0);
+    }
+
+    .insta-post-thumb.ph3 {
+      background: linear-gradient(135deg, #e8f0e8, #cce8cc);
+    }
+
+    .insta-post-thumb .ph-icon {
+      font-size: 28px;
+      opacity: 0.5;
+    }
+
+    .insta-preview-footer {
+      padding: 10px 16px 13px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--sky-deep);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Tagline box ── */
+    .tagline-box {
+      margin-top: 22px;
+      border: 1.5px solid rgba(61, 185, 229, 0.18);
+      border-radius: 22px;
+      padding: 15px 20px 13px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(61, 185, 229, 0.06) 0%, rgba(26, 156, 201, 0.04) 100%);
+    }
+
+    .tag-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .tag-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+      flex-shrink: 0;
+    }
+
+    .tagline-box .tag {
+      font-family: 'Recoleta', 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+    .tagline-box .date {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin: 5px 0 0;
+      font-weight: 600;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 375px) {
+      .page {
+        padding-top: 110px;
+      }
+
+      h1.main-title {
+        font-size: 36px;
+      }
+
+      .mascot-left {
+        width: 175px;
+        left: -28px;
+      }
+
+      .mascot-right {
+        width: 165px;
+        right: -28px;
+      }
+
+      .upload-section {
+        max-width: 100%;
+      }
+
+      .pill {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+    }
+    /* ── Popup ringraziamento ── */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 30, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .popup-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .popup-box {
+      background: #fff;
+      border-radius: 32px;
+      padding: 36px 28px 32px;
+      max-width: 320px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+      opacity: 0;
+      position: relative;
+    }
+
+    .popup-overlay.show .popup-box {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .popup-pollo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 6px 16px rgba(61,185,229,0.3));
+      animation: popBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+    }
+
+    @keyframes popBounce {
+      0%   { transform: scale(0) rotate(-15deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .popup-title {
+      font-family: 'Recoleta','Fraunces',serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .popup-title .heart {
+      color: #e8405a;
+      display: inline-block;
+      animation: heartbeat 1.2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      14%     { transform: scale(1.25); }
+      28%     { transform: scale(1); }
+      42%     { transform: scale(1.15); }
+      70%     { transform: scale(1); }
+    }
+
+    .popup-sub {
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .popup-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 18px var(--sky-glow);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .popup-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(61,185,229,0.45);
+    }
+
+    .popup-btn:active { transform: scale(0.96); }
+
+    /* ── Mini loader spinner ── */
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .loader-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .loader-bubble {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 24px;
+      padding: 22px 32px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.16);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 13px;
+    }
+    .loader-ring {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--sky-deep) 0%,
+        var(--sky) 40%,
+        rgba(61, 185, 229, 0.08) 70%,
+        var(--sky-deep) 100%
+      );
+      animation: spin-ring 0.85s linear infinite;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .loader-ring::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 50%;
+    }
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+    .loader-label {
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      letter-spacing: 0.5px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ Mini loader spinner ══ -->
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="loader-bubble">
+      <div class="loader-ring"></div>
+      <span class="loader-label">Caricamento…</span>
+    </div>
+  </div>
+
+  <!-- ══ Popup ringraziamento ══ -->
+  <div class="popup-overlay" id="thankYouPopup" role="dialog" aria-modal="true" aria-label="Grazie!">
+    <div class="popup-box">
+      <img src="testapollo.png" alt="Pollo" class="popup-pollo">
+      <p class="popup-title">Grazie mille! <span class="heart">♥️</span></p>
+      <p class="popup-sub">Le tue foto sono arrivate —<br>ci vediamo sul palco! 🎉🎷</p>
+      <button class="popup-btn" id="closePopup">Chiudi</button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- ══ Mascotte in alto: SOPRA la card, ai due angoli ══ -->
+    <div class="mascot-wrap" aria-hidden="true">
+      <img src="sposa.png" alt="" class="mascot-bg mascot-left">
+      <img src="pollo.png" alt="" class="mascot-bg mascot-right">
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+
+        <!-- Header -->
+        <header class="header">
+          <h1 class="main-title">Pollo <span class="amp">&amp;</span></h1>
+          <p class="subtitle">Le amiche<br>della sposa</p>
+          <div class="header-divider">
+            <span></span>
+            <div class="dot"></div><span></span>
+          </div>
+        </header>
+
+        <!-- Tasti Social -->
+        <nav class="pill-row" aria-label="Social e Playlist">
+          <a class="pill" href="https://www.instagram.com/pollo_sono_io/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.25.07 1.63.07 4.81s-.01 3.56-.07 4.81c-.15 3.23-1.67 4.77-4.92 4.92-1.25.06-1.63.07-4.85.07s-3.6-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.25-.07-1.63-.07-4.81s.02-3.56.07-4.81c.15-3.23 1.67-4.77 4.92-4.92C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5.01-4.73.07-2.27.1-3.32 1.17-3.42 3.42C3.79 8.72 3.78 9.07 3.78 12s.01 3.28.07 4.51c.1 2.24 1.15 3.32 3.42 3.42 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c2.26-.1 3.32-1.17 3.42-3.42.06-1.23.07-1.58.07-4.51s-.01-3.28-.07-4.51c-.1-2.25-1.16-3.32-3.42-3.42C15.5 4.01 15.15 4 12 4Zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2Zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Zm4.8-2.05a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16Z" />
+            </svg>
+            Instagram
+          </a>
+          <a class="pill" href="https://open.spotify.com/intl-it/artist/09xd0NrBr7hupw5Pv7j9gS?si=OzhBpPQgQ1Cb1pH2OixM-A" target="_blank" rel="noopener" aria-label="Spotify">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.59 14.4a.62.62 0 0 1-.86.2c-2.36-1.44-5.33-1.77-8.83-.97a.62.62 0 1 1-.27-1.21c3.83-.87 7.12-.5 9.76 1.11.3.18.4.57.2.87Zm1.22-2.72a.78.78 0 0 1-1.07.25c-2.7-1.66-6.82-2.14-10.02-1.17a.78.78 0 0 1-.45-1.49c3.65-1.1 8.2-.57 11.29 1.34.37.23.48.71.25 1.07Zm.1-2.83C14.8 8.98 9.34 8.8 6.14 9.77a.93.93 0 1 1-.54-1.78c3.68-1.12 9.7-.9 13.49 1.38a.93.93 0 0 1-.96 1.6l-.22-.12Z" />
+            </svg>
+            Spotify
+          </a>
+        </nav>
+
+        <!-- Upload Foto -->
+        <section class="upload-section" aria-label="Caricamento foto">
+          <p class="section-label">Carica le foto 📸</p>
+          <label class="dropzone" id="dropzone" for="fileInput">
+            <span class="plus" aria-hidden="true">+</span>
+            <span class="hint">Tocca per caricare
+              <small>oppure trascina qui le foto</small>
+            </span>
+          </label>
+          <input type="file" id="fileInput" accept="image/*" multiple>
+        </section>
+
+        <div class="section-sep"><span class="sep-icon">✦</span></div>
+
+        <!-- Footer Instagram + Preview -->
+        <footer class="footer">
+          <p class="footer-label">Segui tutti gli scatti su</p>
+
+          <!-- Bottone principale -->
+          <a class="insta-link" href="https://www.instagram.com/pollo_sono_io/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.25.07 1.63.07 4.81s-.01 3.56-.07 4.81c-.15 3.23-1.67 4.77-4.92 4.92-1.25.06-1.63.07-4.85.07s-3.6-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.25-.07-1.63-.07-4.81s.02-3.56.07-4.81c.15-3.23 1.67-4.77 4.92-4.92C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5.01-4.73.07-2.27.1-3.32 1.17-3.42 3.42C3.79 8.72 3.78 9.07 3.78 12s.01 3.28.07 4.51c.1 2.24 1.15 3.32 3.42 3.42 1.23.06 1.58.07 4.73.07s3.5-.01 4.73-.07c2.26-.1 3.32-1.17 3.42-3.42.06-1.23.07-1.58.07-4.51s-.01-3.28-.07-4.51c-.1-2.25-1.16-3.32-3.42-3.42C15.5 4.01 15.15 4 12 4Zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2Zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Zm4.8-2.05a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16Z" />
+            </svg>
+            @pollo_sono_io
+          </a>
+
+          <!-- Preview profilo Instagram -->
+          <!-- ⬇️ INCOLLA QUI IL CODICE EMBED DI BEHOLD.SO -->
+          <div id="behold-widget-placeholder" style="margin-top:14px">
+            <!-- Widget Behold non ancora configurato -->
+            <!-- Vai su behold.so, crea il widget e incolla il codice qui -->
+            <a class="insta-preview" href="https://www.instagram.com/pollo_sono_io/" target="_blank" rel="noopener">
+              <div class="insta-preview-header">
+                <div class="insta-avatar-wrap">
+                  <div class="insta-avatar">
+                    <img src="FotoProfPOLLO.jpg" alt="pollo_sono_io" onerror="this.style.display='none';this.parentElement.textContent='🐔'">
+                  </div>
+                </div>
+                <div class="insta-preview-info">
+                  <div class="insta-preview-username">@pollo_sono_io</div>
+                  <div class="insta-preview-name">Pollo</div>
+                  <div class="insta-preview-bio">VAI COL BLUES!!!🤠🎷✨</div>
+                </div>
+              </div>
+              <div class="insta-preview-stats">
+                <div class="insta-stat"><div class="insta-stat-num">70</div><div class="insta-stat-label">post</div></div>
+                <div class="insta-stat"><div class="insta-stat-num">2.916</div><div class="insta-stat-label">follower</div></div>
+                <div class="insta-stat"><div class="insta-stat-num">2.152</div><div class="insta-stat-label">seguiti</div></div>
+              </div>
+              <div class="insta-preview-posts">
+                <div class="insta-post-thumb ph"><span class="ph-icon">🌸</span></div>
+                <div class="insta-post-thumb ph2"><span class="ph-icon">🥂</span></div>
+                <div class="insta-post-thumb ph3"><span class="ph-icon">💍</span></div>
+              </div>
+              <div class="insta-preview-footer">Apri su Instagram →</div>
+            </a>
+          </div>
+        </footer>
+
+      </div><!-- /.card-content -->
+    </div><!-- /.card -->
+  </div><!-- /.page -->
+
+  <script>
+    /* ── Upload foto su Google Drive via Apps Script ── */
+
+    // ⚠️ Incolla qui il link che ti dà Apps Script dopo "Distribuisci"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTWl16aKEORh975NLYkwFaQh_E_zkLSt5ubd9S6d3ugJLVh_uXxMz6NaL9a_yxfk0q/exec";
+
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+    const thumbs = document.getElementById('thumbs');
+    const statusEl = document.getElementById('uploadStatus');
+
+    function updateStatus(msg) {
+      if (statusEl) statusEl.textContent = msg;
+    }
+
+    async function uploadFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          try {
+            const resp = await fetch(APPS_SCRIPT_URL, {
+              method: 'POST',
+              body: JSON.stringify({ file: e.target.result, name: file.name }),
+            });
+            const json = await resp.json();
+            if (json.success) resolve(file.name);
+            else reject(new Error(json.error || 'Errore sconosciuto'));
+          } catch (err) { reject(err); }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleFiles(files) {
+      if (!files || !files.length) return;
+      const imageFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+      if (!imageFiles.length) return;
+
+      if (!APPS_SCRIPT_URL) {
+        // Modalità preview locale (link non ancora configurato)
+        imageFiles.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = e => {
+            const item = document.createElement('div');
+            item.className = 'thumb-item';
+            const img = document.createElement('img');
+            img.src = e.target.result; img.alt = file.name;
+            item.appendChild(img); thumbs.appendChild(item);
+          };
+          reader.readAsDataURL(file);
+        });
+        updateStatus(`⚠️ ${imageFiles.length} foto pronte — collega il link Drive per caricarle.`);
+        return;
+      }
+
+      updateStatus(`⏳ Caricamento di ${imageFiles.length} foto su Drive…`);
+      showLoader();
+
+      // Manda tutte le foto in parallelo senza aspettare risposta
+      // (arrivano su Drive comunque, ma non blocchiamo l'UI)
+      imageFiles.forEach(f =>
+        uploadFile(f).catch(err => console.error('Upload fallito:', f.name, err))
+      );
+
+      // Mostra il popup dopo un breve delay visivo
+      setTimeout(() => {
+        hideLoader();
+        showThankYou();
+      }, 1200);
+    }
+
+    // ── Popup & loader ──
+    const popup    = document.getElementById('thankYouPopup');
+    const closeBtn = document.getElementById('closePopup');
+    const loader   = document.getElementById('loaderOverlay');
+
+    function showLoader()    { loader.classList.add('show'); }
+    function hideLoader()    { loader.classList.remove('show'); }
+    function showThankYou() { popup.classList.add('show'); }
+    function hideThankYou() { popup.classList.remove('show'); }
+
+    closeBtn.addEventListener('click', hideThankYou);
+    popup.addEventListener('click', e => { if (e.target === popup) hideThankYou(); });
+
+    fileInput.addEventListener('change', e => handleFiles(e.target.files));
+    ['dragover', 'dragenter'].forEach(evt =>
+      dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.add('drag'); })
+    );
+    ['dragleave', 'drop'].forEach(evt =>
+      dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.remove('drag'); })
+    );
+    dropzone.addEventListener('drop', e => { e.preventDefault(); handleFiles(e.dataTransfer.files); });
+
+  </script>
+
+</body>
+
+</html>
