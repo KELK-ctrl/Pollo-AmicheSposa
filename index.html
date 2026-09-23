@@ -145,7 +145,7 @@
     /* ── Contenuto card ── */
     .card-content {
       position: relative;
-      z-index: 2;
+      z-index: 4; /* sopra le mascotte (z-index 3) → titolo appare davanti */
     }
 
     /* ── Header ── */
@@ -836,6 +836,155 @@
       letter-spacing: 0.5px;
     }
 
+    /* ── JotForm widget: dimensioni e centratura ── */
+    #JFWebsiteWidget-01a0cedfe5d870008a30e74d69ca794f7d71 {
+      width: 100% !important;
+    }
+
+    #behold-widget-placeholder {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ── Card profilo Instagram ── */
+    .insta-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .insta-profile-card:hover {
+      box-shadow: 0 8px 24px rgba(61,185,229,0.15);
+      transform: translateY(-1px);
+    }
+
+    .ipc-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid transparent;
+      background:
+        linear-gradient(white, white) padding-box,
+        linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7) border-box;
+      flex-shrink: 0;
+    }
+
+    .ipc-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ipc-username {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .ipc-name {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin: 1px 0 5px;
+    }
+
+    .ipc-stats {
+      display: flex;
+      gap: 10px;
+    }
+
+    .ipc-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .ipc-stat-n {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .ipc-stat-l {
+      font-size: 10px;
+      color: var(--ink-muted);
+    }
+
+    .ipc-follow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-decoration: none;
+      box-shadow: 0 3px 10px var(--sky-glow);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .ipc-follow:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(61,185,229,0.4);
+    }
+
+    /* ── Griglia post Instagram ── */
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .insta-grid a {
+      display: block;
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .insta-grid a img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .insta-grid a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(61, 185, 229, 0);
+      transition: background 0.3s;
+    }
+
+    .insta-grid a:hover img {
+      transform: scale(1.06);
+      filter: brightness(0.88);
+    }
+
+    .insta-grid a:hover::after {
+      background: rgba(61, 185, 229, 0.15);
+    }
+
   </style>
 </head>
 
@@ -854,21 +1003,12 @@
     <div class="popup-box">
       <img src="testapollo.png" alt="Pollo" class="popup-pollo">
       <p class="popup-title">Grazie mille! <span class="heart">♥️</span></p>
-      <p class="popup-sub">Le tue foto sono arrivate —<br>ci vediamo sul palco! 🎉🎷</p>
+      <p class="popup-sub">Le tue foto sono arrivate —<br>vai con il blues! 🎉🎷</p>
       <button class="popup-btn" id="closePopup">Chiudi</button>
     </div>
   </div>
 
   <div class="page">
-
-    <!-- Titolo sopra le mascotte -->
-    <div class="page-title">
-      <h1 class="main-title">Pollo <span class="amp">&amp;</span></h1>
-      <p class="subtitle">Le amiche<br>della sposa</p>
-      <div class="page-title-divider">
-        <span></span><div class="dot"></div><span></span>
-      </div>
-    </div>
 
     <!-- ══ Mascotte in alto: SOPRA la card, ai due angoli ══ -->
     <div class="mascot-wrap" aria-hidden="true">
@@ -879,8 +1019,15 @@
     <div class="card">
       <div class="card-content">
 
-        <!-- Header (vuoto, titolo spostato sopra) -->
-        <header class="header" style="display:none"></header>
+        <!-- Header -->
+        <header class="header">
+          <h1 class="main-title">Pollo <span class="amp">&amp;</span></h1>
+          <p class="subtitle">Le amiche<br>della sposa</p>
+          <div class="header-divider" style="display:flex">
+            <span></span>
+            <div class="dot"></div><span></span>
+          </div>
+        </header>
 
         <!-- Tasti Social -->
         <nav class="pill-row" aria-label="Social e Playlist">
@@ -916,16 +1063,56 @@
 
         <!-- Footer Instagram + Preview -->
         <footer class="footer">
-          <!-- ⬇️ INCOLLA QUI IL CODICE EMBED DI BEHOLD.SO -->
-          <div id="behold-widget-placeholder" style="margin-top:14px">
-            <behold-widget feed-id="ZU9KCAY5raRNT3dJ8IoZ"></behold-widget>
-            <script>
-              (() => {
-                if(window.__bhldScript)return;window.__bhldScript=true;
-                const d=document,s=d.createElement("script");s.type="module";
-                s.src="https://w.behold.so/widget.js";setTimeout(()=>{d.head.append(s);},0);
-              })();
-            </script>
+          <p class="footer-label">Segui tutti gli scatti su</p>
+
+          <!-- Card profilo Instagram -->
+          <a class="insta-profile-card"
+             href="https://www.instagram.com/pollo_sono_io/"
+             target="_blank" rel="noopener">
+            <img class="ipc-avatar" src="FotoProfPOLLO.jpg"
+                 alt="pollo_sono_io"
+                 onerror="this.style.display='none'">
+            <div class="ipc-info">
+              <div class="ipc-username">@pollo_sono_io</div>
+              <div class="ipc-name">Pollo &bull; Musicista/band</div>
+              <div class="ipc-stats">
+                <div class="ipc-stat"><span class="ipc-stat-n">70</span><span class="ipc-stat-l">post</span></div>
+                <div class="ipc-stat"><span class="ipc-stat-n">2.9K</span><span class="ipc-stat-l">follower</span></div>
+                <div class="ipc-stat"><span class="ipc-stat-n">2.1K</span><span class="ipc-stat-l">seguiti</span></div>
+              </div>
+            </div>
+            <span class="ipc-follow">Segui</span>
+          </a>
+
+          <!-- Griglia post Instagram (9 più recenti) -->
+          <div class="insta-grid">
+            <a href="https://www.instagram.com/p/DdhUCTvjSTE/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-d0c1395c429c6bbd8662.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/reel/DdbU36WNrdg/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-6ddaa3b2abaa519a7af6.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/reel/DdYv8NYN-qu/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-62de900ebafcd267a3db.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/reel/DdUdbY0t2vQ/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-8e6fc5fe6a89ea6e28f1.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/reel/DdJRqAqNeP7/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-44e81b5c45038e738eed.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/p/Dc8ibVVjXMY/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-f0e333a1cbeee32c3168.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/p/Dc1Xb5_jf8G/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-6fd6c4f280b371fc4504.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/reel/DcyIjFONKAP/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-4a553dd7a0a86c4019cc.jpg?nc=1" alt="post" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/reel/Dcs9oJdtmuM/" target="_blank" rel="noopener">
+              <img src="https://www.jotform.com/uploads/page-builder/ww/01a0cedfe5d870008a30e74d69ca794f7d71_social-feed-39bba6a75e4b0a09bb77.jpg?nc=1" alt="post" loading="lazy">
+            </a>
           </div>
         </footer>
 
